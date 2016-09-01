@@ -1,7 +1,7 @@
 Github 101
 ===
 
-Taller inicial de Github. [Ver presentación](http://abenassi.github.io/taller-github-101).
+Taller inicial de Github. [Ver presentación](https://gobabiertoar.github.io/taller-github-101/).
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
