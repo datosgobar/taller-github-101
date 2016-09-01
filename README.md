@@ -7,6 +7,7 @@ Taller inicial de Github. [Ver presentación](https://gobabiertoar.github.io/tal
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+- [Setting up!](#setting-up)
 - [Temas de la presentación](#temas-de-la-presentaci%C3%B3n)
 - [Otros temas interesantes no cubiertos](#otros-temas-interesantes-no-cubiertos)
 - [Herramientas usadas en la presentación](#herramientas-usadas-en-la-presentaci%C3%B3n)
@@ -15,6 +16,13 @@ Taller inicial de Github. [Ver presentación](https://gobabiertoar.github.io/tal
   - [Otras fuentes utilizadas](#otras-fuentes-utilizadas)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Setting up!
+
+1. Crear una cuenta en Github
+2. Crear una carpeta `github` donde irán todos los repositorios
+3. Instalar Source Tree y poner `github` como la carpeta default
+4. Instalar Sublime Text
 
 ## Temas de la presentación
 
