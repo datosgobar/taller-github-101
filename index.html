@@ -1,0 +1,984 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Github 101</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  background-color: #f7f7f7;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.separator {
+  background-color: #222;
+  color: #f7f7f7;
+}
+
+  </style>
+    <script async src="http://localhost:35729/livereload.js"></script>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="github-101">Github 101</h1>
+<h2 id="una-introducci-n-al-uso-de-github">Una introducción al uso de Github</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="git-es-un-lenguaje-de-control-de-versiones">Git es un lenguaje de control de versiones</h3>
+<p>Permite <em>recordar cambios a un archivo o conjunto de archivos</em> para:</p>
+<ul>
+<li><strong>Revertir</strong> un archivo o proyecto a un estado anterior</li>
+<li><strong>Comparar</strong> cambios</li>
+<li><strong>Trackear actividad</strong> de los colaborardores</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h3 id="github-es-un-hosting-de-repositorios-manejados-con-git">Github es un hosting de repositorios manejados con Git</h3>
+<p align="center">Git + web + comunidad + gestión de proyectos</p>
+
+<p align="center"><img src="assets/github_screenshot.png" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden  separator" id="slide-4">
+    <section class="slide-content"><h1 id="git-web">Git + web</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h3 id="github-repositorio-local-vs-repositorio-en-la-web">Github: Repositorio local vs. repositorio en la web</h3>
+<p align="center"><strong>Git + web</strong> + comunidad + gestión de proyectos</p>
+
+
+<p align="center"><img src="assets/github_esquema_repos_locales_vs_web.png" height="400"></p></section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="github-primeros-conceptos">Github: Primeros conceptos</h3>
+<p align="center"><strong>Git + web</strong> + comunidad + gestión de proyectos</p>
+
+<ul>
+<li><strong>Commit</strong>: <em>Foto del estado</em> de un archivo o proyecto, con los cambios realizados hasta el momento, a la que puedo volver.</li>
+<li><strong>Push</strong>: <em>Subida</em> de todos los <em>commits</em> realizados localmente, a la web.</li>
+<li><strong>Pull</strong>: <em>Descarga</em> de todos los <em>commits</em> subidos hasta el momento en la web, a mi versión local.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="github-1-crear-un-repositorio">Github: 1. Crear un repositorio</h3>
+<p align="center"><strong>Git + web</strong> + comunidad + gestión de proyectos</p>
+
+<p align="center"><img src="assets/github_crear_repositorio.gif" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="github-1-crear-un-repositorio-naming-conventions-">Github: 1. Crear un repositorio (Naming conventions)</h3>
+<p align="center">Git + web + <strong>comunidad</strong> + gestión de proyectos</p>
+
+<p><strong>Sitios web</strong></p>
+<pre><code>http://domain.com ➔ domain.com.git
+http://sub.domain.com ➔ sub.domain.com.git
+For other projects, let&#39;s keep the lowercase and dashes pattern:</code></pre>
+<p><strong>Otros proyectos</strong></p>
+<pre><code>star-wars.git
+the-empire-strikes-back.git
+return-of-the-jedi.git</code></pre>
+<p>Ver <a href="https://github.com/bcgov/BC-Policy-Framework-For-GitHub/blob/master/BC-Gov-Org-HowTo/Naming-Repos.md">BC-Policy-Framework-For-GitHub/Naming-Repos</a></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="github-1-crear-un-repositorio-clonarlo-a-mi-entorno-local-">Github: 1. Crear un repositorio (Clonarlo a mi entorno local)</h3>
+<p align="center"><strong>Git + web</strong> + comunidad + gestión de proyectos</p>
+
+<p align="center"><img src="assets/github_clonar_repositorio.gif" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="sourcetree-command-line-vs-graphical-interface">SourceTree: Command Line vs. Graphical Interface</h3>
+<p align="center"><strong>Git + web</strong> + comunidad + gestión de proyectos</p>
+
+<p align="center"><img src="assets/clone_with_command_line_or_source_tree.png" height="400"></p></section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h3 id="github-1-crear-un-repositorio-clonarlo-a-mi-entorno-local-con-sourcetree-">Github: 1. Crear un repositorio (Clonarlo a mi entorno local con SourceTree)</h3>
+<p align="center"><strong>Git + web</strong> + comunidad + gestión de proyectos</p>
+
+<p align="center"><img src="assets/clone_with_source_tree.gif" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="github-1-crear-un-repositorio-buenas-pr-cticas-">Github: 1. Crear un repositorio (Buenas prácticas)</h3>
+<p align="center">Git + web + comunidad + <strong>gestión de proyectos</strong></p>
+
+<ul>
+<li>Un <strong>grupo conceptual</strong> por repositorio<ul>
+<li>Discutir estructura de repositorios <strong>al comienzo</strong></li>
+</ul>
+</li>
+<li>Repositorios separados para archivos que sean <strong>compartidos entre múltiples proyectos</strong></li>
+<li>Repositorios separados para <strong>archivos grandes</strong></li>
+</ul>
+<p>Ver <a href="https://sethrobertson.github.io/GitBestPractices/#divide">GitBestPractices</a></p>
+</section>
+  </div>
+  <div class="slide hidden  separator" id="slide-13">
+    <section class="slide-content"><h1 id="markdown">Markdown</h1>
+<h2 id="todo-repositorio-tiene-un-readme-md">Todo repositorio tiene un README.md</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="markdown-el-lenguaje-de-marcado-de-github">Markdown: El lenguaje de marcado de Github</h3>
+<h4 id="headers">Headers</h4>
+<pre><code class="lang-no-highlight"># H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6</code></pre>
+<h4 id="h4">H4</h4>
+<h5 id="h5">H5</h5>
+<h6 id="h6">H6</h6>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="markdown-el-lenguaje-de-marcado-de-github">Markdown: El lenguaje de marcado de Github</h3>
+<h4 id="emphasis">Emphasis</h4>
+<pre><code class="lang-no-highlight">Emphasis, aka italics, with *asterisks*
+
+Strong emphasis, aka bold, with **double asterisks**
+
+Strikethrough uses two tildes. ~~Scratch this.~~</code></pre>
+<p>Emphasis, aka italics, with <em>asterisks</em></p>
+<p>Strong emphasis, aka bold, with <strong>double asterisks</strong></p>
+<p>Strikethrough uses two tildes. <del>Scratch this.</del></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="markdown-el-lenguaje-de-marcado-de-github">Markdown: El lenguaje de marcado de Github</h3>
+<h4 id="ordered-lists">Ordered Lists</h4>
+<pre><code class="lang-no-highlight">1. First ordered list item
+2. Another item
+    1. Ordered sub-list
+    2. Ordered sub-list
+3. Actual numbers don&#39;t matter, just that it&#39;s a number</code></pre>
+<ol>
+<li>First ordered list item</li>
+<li>Another item<ol>
+<li>Ordered sub-list</li>
+<li>Ordered sub-list</li>
+</ol>
+</li>
+<li>Actual numbers don&#39;t matter, just that it&#39;s a number</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h3 id="markdown-el-lenguaje-de-marcado-de-github">Markdown: El lenguaje de marcado de Github</h3>
+<h4 id="unordered-lists">Unordered Lists</h4>
+<pre><code class="lang-no-highlight">* Unordered sub-list with asterisks.
+    - Unordered sub-list with minuses.
+        + Unordered sub-list with pluses.
+* Unordered sub-list with asterisks.
+* Unordered sub-list with asterisks.</code></pre>
+<ul>
+<li>Unordered sub-list with asterisks.<ul>
+<li>Unordered sub-list with minuses.<ul>
+<li>Unordered sub-list with pluses.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Unordered sub-list with asterisks.</li>
+<li>Unordered sub-list with asterisks.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h3 id="markdown-el-lenguaje-de-marcado-de-github">Markdown: El lenguaje de marcado de Github</h3>
+<h4 id="links-and-images">Links and images</h4>
+<pre><code class="lang-no-highlight">[I&#39;m a link](https://www.google.com)
+
+![I&#39;m an image](assets/random_image.png)</code></pre>
+<p><a href="https://www.google.com">I&#39;m a link</a></p>
+<p align="center"><img src="assets/random_image.gif" height="200">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h3 id="markdown-el-lenguaje-de-marcado-de-github">Markdown: El lenguaje de marcado de Github</h3>
+<h4 id="hay-mucho-m-s-">Hay mucho más...</h4>
+<p>Ver <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></p>
+<p><strong>Secreto</strong>: Esta misma presentación <em>está hecha en Markdown</em>!</p>
+<p>Ver <a href="https://github.com/jdan/cleaver">Cleaver</a> 30-sec slideshows for Hackers.S</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h3 id="github-2-commit">Github: 2. Commit</h3>
+<p align="center"><strong>Git</strong> + web + comunidad + gestión de proyectos</p>
+
+<p align="center"><img src="assets/commit_with_source_tree.gif" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h3 id="github-2-commit-buenas-pr-cticas-">Github: 2. Commit (Buenas prácticas)</h3>
+<p align="center"><strong>Git</strong> + web + <strong>comunidad</strong> + gestión de proyectos</p>
+
+<ul>
+<li>Hacer un commit para cada <strong>cambio lógico</strong><ul>
+<li><strong>No meter varios</strong> en un sólo commit</li>
+<li><strong>No separar un mismo cambio lógico</strong> en varios commits</li>
+</ul>
+</li>
+<li><em>Commit early and often</em>: <strong>pequeños commits</strong> son más fáciles de entender y revertir</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h3 id="github-2-commit-buenas-pr-cticas-mensaje-">Github: 2. Commit (Buenas prácticas - mensaje)</h3>
+<p align="center"><strong>Git</strong> + web + <strong>comunidad</strong> + gestión de proyectos</p>
+
+<p><strong>Summary line</strong>: descriptiva, compacta, &lt; 50 chars, capitalizada y escrita en presente imperativo.</p>
+<pre><code>Agrega lista de buenas prácticas a los temas de presentación</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h3 id="github-2-commit-buenas-pr-cticas-mensaje-">Github: 2. Commit (Buenas prácticas - mensaje)</h3>
+<p align="center"><strong>Git</strong> + web + <strong>comunidad</strong> + gestión de proyectos</p>
+
+<p><strong>Descripción</strong>: <strong>por qué</strong> y <strong>cómo</strong> los cambios fueron realizados y los <strong>side-effects</strong> que pueden tener. Párrafos separados por línea en blanco.</p>
+<pre><code>Agrega lista de buenas prácticas a los temas de presentación
+
+Se agregan en forma de lista con bullets. A la presentación le faltaba
+una guía breve que introduzca algunas buenas prácticas.
+
+Fuentes: https://github.com/agis-/git-style-guide</code></pre>
+<p>Ver <a href="https://github.com/agis-/git-style-guide">Git Style Guide</a></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-24">
+    <section class="slide-content"><h3 id="github-2-push">Github: 2. Push</h3>
+<p align="center"><strong>Git + web</strong> + comunidad + gestión de proyectos</p>
+
+<p align="center"><img src="assets/push_with_source_tree.gif" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-25">
+    <section class="slide-content"><h3 id="github-2-push">Github: 2. Push</h3>
+<p align="center"><strong>Git + web</strong> + comunidad + gestión de proyectos</p>
+
+<p align="center"><img src="assets/push_with_source_tree_result.png" height="400"></p></section>
+  </div>
+  <div class="slide hidden" id="slide-26">
+    <section class="slide-content"><h3 id="github-3-pull">Github: 3. Pull</h3>
+<p align="center"><strong>Git + web</strong> + comunidad + gestión de proyectos</p>
+
+<p align="center"><img src="assets/pull_with_source_tree.png" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-27">
+    <section class="slide-content"><h3 id="recapitulemos">Recapitulemos</h3>
+<h4 id="git-web">Git + web</h4>
+<ul>
+<li><p><strong>Crear</strong> un repositorio y <strong>clonarlo</strong></p>
+</li>
+<li><p>Escribir un documento en <strong>Markdown</strong></p>
+</li>
+<li><p><em>Commitear</em>, <em>pushear</em> y <em>pullear</em></p>
+</li>
+</ul>
+<ul>
+<li>Mmmm, y si hacemos un ejemplo <em>ao vivo</em>?</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden  separator" id="slide-28">
+    <section class="slide-content"><h1 id="comunidad-gesti-n-de-proyectos">comunidad + gestión de proyectos</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-29">
+    <section class="slide-content"><h3 id="github-4-issues">Github: 4. Issues</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<p align="center"><img src="assets/github_issues.png" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-30">
+    <section class="slide-content"><h3 id="github-4-issues-para-qu-sirven-">Github: 4. Issues (Para qué sirven?)</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<p><em>Issues are where you structure your ideas, with others or alone</em></p>
+<ul>
+<li><strong>Organizar</strong> tareas</li>
+<li><strong>Discutir</strong> sobre las tareas</li>
+<li>Reportar un <strong>bug</strong></li>
+<li>Organizar el trabajo con <strong>actores remotos</strong></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-31">
+    <section class="slide-content"><h3 id="github-4-issues-buenas-pr-cticas-b-sicas-">Github: 4. Issues (Buenas prácticas - básicas)</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<ul>
+<li>El título de un issue debería <strong>contener al menos un verbo</strong> (deben sugerir una acción)</li>
+<li><strong>No cerrar prematuramente</strong> un issue. Está ok que un issue permanezca años abierto, siempre que estén bien organizados y sean actuales.</li>
+<li>Mantener <strong>discusiones lógicamente distintas separadas</strong> (abrir otro issue!)</li>
+<li><strong>Referenciar el issue</strong> en los commits <code>#29</code></li>
+</ul>
+<p>Ver <a href="http://ben.balter.com/2014/11/06/rules-of-communicating-at-github/">Rules for communicating at GitHub</a></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-32">
+    <section class="slide-content"><h3 id="github-4-issues-buenas-pr-cticas-c-mo-escribir-uno-">Github: 4. Issues (Buenas prácticas - cómo escribir uno)</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<ul>
+<li><p><strong>Contexto</strong>: Explicar las <em>condiciones</em> que llevaron a escribir este issue.</p>
+</li>
+<li><p><strong>Problema o idea</strong>: El contexto debería llevar a un <em>problema o a una idea</em>.</p>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-33">
+    <section class="slide-content"><h3 id="github-4-issues-buenas-pr-cticas-c-mo-escribir-uno-">Github: 4. Issues (Buenas prácticas - cómo escribir uno)</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<ul>
+<li><strong>Solución o próximo paso</strong>: <em>Move forward and engage with others</em>. Se puede solicitar <em>feedback</em>, <em>asignar el issue</em> a alguien más o dejarlo ahí para <em>futura investigación</em>. Pero <strong>siempre</strong> debe proponerse un <em>próximo paso</em> para solucionar el issue.</li>
+</ul>
+<p>Ver <a href="https://wiredcraft.com/blog/how-we-write-our-github-issues/">How we Write Github Issues</a></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-34">
+    <section class="slide-content"><h3 id="github-4-issues-buenas-pr-cticas-etiquetas-">Github: 4. Issues (Buenas prácticas - etiquetas)</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<ul>
+<li>Organizar issues con <strong>etiquetas</strong></li>
+<li>Tipos de etiquetas:<ul>
+<li><strong>Gihtub labels</strong>: Todos los conocen y usan.</li>
+<li><strong>Acción necesaria</strong>: Clasifica por tipo de acción que requieren.</li>
+<li><strong>Status/progreso</strong>: ¿Cómo viene el trabajo?</li>
+<li><strong>Componentes</strong>: ¿A qué componentes del sistema afecta?</li>
+</ul>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-35">
+    <section class="slide-content"><h3 id="github-4-issues-buenas-pr-cticas-etiquetas-">Github: 4. Issues (Buenas prácticas - etiquetas)</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<ul>
+<li>Nombrar etiquetas sólo con <strong>minúsculas</strong></li>
+</ul>
+<p>Ver <a href="https://robinpowered.com/blog/best-practice-system-for-organizing-and-tagging-github-issues/">How we organize GitHub issues: A simple styleguide for tagging</a></p>
+<p>Ver <a href="https://docs.saltstack.com/en/latest/topics/development/labels.html">Github Labels and Milestones</a></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-36">
+    <section class="slide-content"><h3 id="github-4-issues-integraci-n-">Github: 4. Issues (Integración)</h3>
+<p align="center">Git + web + comunidad + <strong>gestión de proyectos</strong></p>
+
+<p align="center"><a href="https://waffle.io/">Waffle</a></p>
+
+<p align="center"><img src="assets/issues_with_waffle.png" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-37">
+    <section class="slide-content"><h3 id="github-4-issues-milestones-">Github: 4. Issues (Milestones)</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<p align="center">Agrupación de issues en <strong>hitos</strong> o <strong>sprints</strong></p>
+
+<p align="center"><img src="assets/github_milestones.png" height="380">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-38">
+    <section class="slide-content"><h3 id="github-5-readmes">Github: 5. READMEs</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<ul>
+<li><strong>Nombre del proyecto</strong></li>
+<li><strong>Descripción</strong>: Importancia del proyecto, lo que hace.</li>
+<li><strong>Indice</strong>: Si es largo o detallado, incluir una <em>TOC</em>.</li>
+<li><strong>Instalación</strong>: ¿Cómo instalo el proyecto? Incluir <em>GIF</em>.</li>
+<li><strong>Uso</strong>: ¿Cómo uso esto? Ej. de código, screenshots, link a otros docs.</li>
+<li><strong>Contribuciones</strong>: Cómo contribuir al proyecto</li>
+<li><strong>Créditos</strong>: Autores, colaboradores, inspiraciones..</li>
+<li><strong>Licencia</strong></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-39">
+    <section class="slide-content"><h3 id="github-5-readmes-referencias-">Github: 5. READMEs (Referencias)</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<p>Ver <a href="https://guides.github.com/features/wikis/">Formatting your README</a></p>
+<p>Ver <a href="https://help.github.com/articles/setting-guidelines-for-repository-contributors/">Guidelines for repository contributors</a></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-40">
+    <section class="slide-content"><h3 id="github-5-wiki">Github: 5. Wiki</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<p align="center"><img src="assets/github_wiki.png" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-41">
+    <section class="slide-content"><h3 id="github-5-wiki">Github: 5. Wiki</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<p align="center"><img src="assets/github_wiki2.png" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-42">
+    <section class="slide-content"><h3 id="github-5-wiki">Github: 5. Wiki</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<p align="center"><img src="assets/github_wiki3.png" height="400">
+</p></section>
+  </div>
+  <div class="slide hidden" id="slide-43">
+    <section class="slide-content"><h3 id="github-5-wiki">Github: 5. Wiki</h3>
+<p align="center">Git + web + <strong>comunidad + gestión de proyectos</strong></p>
+
+<p><em>Just as writing good code and great tests are important, <strong>excellent documentation helps others</strong> use and extend your project.</em></p>
+<ul>
+<li>Se pueden <strong>clonar</strong> y editar localmente, como un repo</li>
+</ul>
+<p>Ver <a href="https://guides.github.com/features/wikis/">Creating your wiki</a></p>
+<p>Ver <a href="https://help.github.com/articles/about-github-wikis/">About GitHub Wikis</a></p>
+<p>Ver <a href="https://github.com/showcases/projects-with-great-wikis">Projects with great wikis</a></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-44">
+    <section class="slide-content"><h3 id="otros-temas">Otros temas</h3>
+<ul>
+<li>Otros conceptos importantes en Github<ul>
+<li>Forks</li>
+<li><a href="https://www.thinkful.com/learn/github-pull-request-tutorial/">Pull Request</a></li>
+<li>Merge</li>
+<li>Branches</li>
+<li>Conflictos de edición</li>
+</ul>
+</li>
+<li><em>CONTRIBUTING.md</em></li>
+<li><em>Commit tags</em> y <em>HISTORY.md</em></li>
+<li>Licencias</li>
+<li>Read The Docs</li>
+<li>Github Pages</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-45">
+    <section class="slide-content"><h1 id="-">:-)</h1>
+<h2 id="-gracias-"><strong>¡Gracias!</strong></h2>
+</section>
+  </div>
+
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  try {
+    window.history.replaceState({} , null, '#' + currentPosition());
+  } catch (e) {
+    window.location.hash = currentPosition();
+  }
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>
